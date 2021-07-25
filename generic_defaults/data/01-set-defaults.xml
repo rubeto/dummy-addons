@@ -3,163 +3,13 @@
     <data noupdate='0'>
 
 <!-- BORRA ESTADOS / PROVINCIAS INNECESARIOS -->
-        <!-- Borra estados/provincias excepto las de Argentina -->
-        <delete model='res.country.state' search="[('country_id.name','!=','Argentina')]" />
-
-<!-- LIMPIA CONTACTOS -->
-        <!-- Borra contactos innecesarios -->
-        <delete model='res.partner' search="[('name','=','AFIP')]" />
-        <delete model='res.partner' search="[('name','=','IIBB a pagar')]" />
-        <!-- Renombra contacto 'Consumidor Final Anónimo' a 'Consumidor Final' -->
-        <record id="l10n_ar.par_cfa" model="res.partner">
-            <field name="name">Consumidor Final</field>
-            <field name="image_1920" type="base64" file="generic_defaults/static/img/consumidor.png"/>
-        </record>
+        <!-- Borra estados/provincias excepto las de USA -->
+        <delete model='res.country.state' search="[('country_id.name','!=','United States')]" />
 
 <!-- CAMBIA NOMBRE DEL DEPOSITO -->
         <record id="stock.warehouse0" model="stock.warehouse">
-            <field name="name">Depósito</field>
+            <field name="name">Warehouse</field>
         </record>
-
-<!-- CAMBIA SIMBOLO DOLAR -->
-        <record id='base.USD' model='res.currency'>
-            <field name='symbol'>USD </field>
-        </record>
-
-<!-- ASIGNA CODIGO AFIP A LOS IVA -->
-        <record id="l10n_ar.1_ri_tax_vat_no_gravado_ventas" model="account.tax">
-            <field name="ar_afip" eval="ref('numa_l10n_ar_base.afip_operacion_condicion_iva_1')"/>
-        </record>
-        <record id="l10n_ar.1_ri_tax_vat_no_gravado_compras" model="account.tax">
-            <field name="ar_afip" eval="ref('numa_l10n_ar_base.afip_operacion_condicion_iva_1')"/>
-        </record>
-        <record id="l10n_ar.1_ri_tax_vat_exento_ventas" model="account.tax">
-            <field name="ar_afip" eval="ref('numa_l10n_ar_base.afip_operacion_condicion_iva_2')"/>
-        </record>
-        <record id="l10n_ar.1_ri_tax_vat_exento_compras" model="account.tax">
-            <field name="ar_afip" eval="ref('numa_l10n_ar_base.afip_operacion_condicion_iva_2')"/>
-        </record>
-        <record id="l10n_ar.1_ri_tax_vat_0_ventas" model="account.tax">
-            <field name="ar_afip" eval="ref('numa_l10n_ar_base.afip_operacion_condicion_iva_3')"/>
-        </record>
-        <record id="l10n_ar.1_ri_tax_vat_0_compras" model="account.tax">
-            <field name="ar_afip" eval="ref('numa_l10n_ar_base.afip_operacion_condicion_iva_3')"/>
-        </record>
-        <record id="l10n_ar.1_ri_tax_vat_10_ventas" model="account.tax">
-            <field name="ar_afip" eval="ref('numa_l10n_ar_base.afip_operacion_condicion_iva_4')"/>
-        </record>
-        <record id="l10n_ar.1_ri_tax_vat_10_compras" model="account.tax">
-            <field name="ar_afip" eval="ref('numa_l10n_ar_base.afip_operacion_condicion_iva_4')"/>
-        </record>
-        <record id="l10n_ar.1_ri_tax_vat_21_ventas" model="account.tax">
-            <field name="ar_afip" eval="ref('numa_l10n_ar_base.afip_operacion_condicion_iva_5')"/>
-        </record>
-        <record id="l10n_ar.1_ri_tax_vat_21_compras" model="account.tax">
-            <field name="ar_afip" eval="ref('numa_l10n_ar_base.afip_operacion_condicion_iva_5')"/>
-        </record>
-        <record id="l10n_ar.1_ri_tax_vat_27_ventas" model="account.tax">
-            <field name="ar_afip" eval="ref('numa_l10n_ar_base.afip_operacion_condicion_iva_6')"/>
-        </record>
-        <record id="l10n_ar.1_ri_tax_vat_27_compras" model="account.tax">
-            <field name="ar_afip" eval="ref('numa_l10n_ar_base.afip_operacion_condicion_iva_6')"/>
-        </record>
-
-<!-- CREA PUNTO DE VENTA 55555 HOMOLOGACION FACTURA ELECTRONICA -->
-        <record id="punto_venta_55555" model="afip.puntos.venta">
-            <field name="name">55555</field>
-            <field name="nombre_fantasia">FE-HOMO</field>
-            <field name="company_id" ref="base.main_company"/>
-            <field name="sistema">RECE</field>
-            <field name="ambiente">homologacion</field>
-            <field name='comprobantes_ids' eval="[
-                (0, 0, {
-                    'name': 'FACTURA A',
-                    'company_id': 'base.main_company',
-                    'nombre_corto': 'FA',
-                    'afip_tipo_comprobante_id': ref('numa_l10n_ar_base.afip_tipo_comprobante_1'),
-                    'copias': '1' 
-                }),
-                (0, 0, {
-                    'name': 'NOTA DE DEBITO A',
-                    'company_id': 'base.main_company',
-                    'nombre_corto': 'NDA',
-                    'afip_tipo_comprobante_id': ref('numa_l10n_ar_base.afip_tipo_comprobante_2'),
-                    'copias': '1' 
-                }),
-                (0, 0, {
-                    'name': 'NOTA DE CREDITO A',
-                    'company_id': 'base.main_company',
-                    'nombre_corto': 'NCA',
-                    'afip_tipo_comprobante_id': ref('numa_l10n_ar_base.afip_tipo_comprobante_3'),
-                    'copias': '1' 
-                }),
-                (0, 0, {
-                    'name': 'FACTURA B',
-                    'company_id': 'base.main_company',
-                    'nombre_corto': 'FB',
-                    'afip_tipo_comprobante_id': ref('numa_l10n_ar_base.afip_tipo_comprobante_6'),
-                    'copias': '1' 
-                }),
-                (0, 0, {
-                    'name': 'NOTA DE DEBITO B',
-                    'company_id': 'base.main_company',
-                    'nombre_corto': 'NDB',
-                    'afip_tipo_comprobante_id': ref('numa_l10n_ar_base.afip_tipo_comprobante_7'),
-                    'copias': '1' 
-                }),
-                (0, 0, {
-                    'name': 'NOTA DE CREDITO B',
-                    'company_id': 'base.main_company',
-                    'nombre_corto': 'NCB',
-                    'afip_tipo_comprobante_id': ref('numa_l10n_ar_base.afip_tipo_comprobante_8'),
-                    'copias': '1' 
-                })
-            ]" />
-        </record>
-<!--
-                (0, 0, {
-                    'name': 'FACTURA A FCE',
-                    'company_id': 'base.main_company',
-                    'nombre_corto': 'FCE FA',
-                    'afip_tipo_comprobante_id': ref('numa_l10n_ar_base.afip_tipo_comprobante_201'),
-                    'copias': '1' 
-                }),
-                (0, 0, {
-                    'name': 'NOTA DE DEBITO A FCE',
-                    'company_id': 'base.main_company',
-                    'nombre_corto': 'FCE NDA',
-                    'afip_tipo_comprobante_id': ref('numa_l10n_ar_base.afip_tipo_comprobante_202'),
-                    'copias': '1' 
-                }),
-                (0, 0, {
-                    'name': 'NOTA DE CREDITO A FCE',
-                    'company_id': 'base.main_company',
-                    'nombre_corto': 'FCE NCA',
-                    'afip_tipo_comprobante_id': ref('numa_l10n_ar_base.afip_tipo_comprobante_203'),
-                    'copias': '1' 
-                }),
-                (0, 0, {
-                    'name': 'FACTURA B FCE',
-                    'company_id': 'base.main_company',
-                    'nombre_corto': 'FCE FB',
-                    'afip_tipo_comprobante_id': ref('numa_l10n_ar_base.afip_tipo_comprobante_206'),
-                    'copias': '1' 
-                }),
-                (0, 0, {
-                    'name': 'NOTA DE DEBITO B FCE',
-                    'company_id': 'base.main_company',
-                    'nombre_corto': 'FCE NDB',
-                    'afip_tipo_comprobante_id': ref('numa_l10n_ar_base.afip_tipo_comprobante_207'),
-                    'copias': '1' 
-                }),
-                (0, 0, {
-                    'name': 'NOTA DE CREDITO B FCE',
-                    'company_id': 'base.main_company',
-                    'nombre_corto': 'FCE NCB',
-                    'afip_tipo_comprobante_id': ref('numa_l10n_ar_base.afip_tipo_comprobante_208'),
-                    'copias': '1' 
-                })
--->
 
 <!-- LARGE ATTACHMENTS -->
         <!-- Habilita attachment_large_object -->
@@ -184,8 +34,6 @@
         <record id="generic_config_settings" model="res.config.settings">
 <!-- -->
             <field name="company_id" ref="base.main_company" />
-            <!-- Setea COA de IVARI -->
-            <field name="chart_template_id" ref="l10n_ar.l10nar_ri_chart_template" />
             <!-- Habilta multicurrency -->
             <field name="group_multi_currency" eval="True" />
             <!-- Habilta dirección de envío -->
@@ -207,16 +55,6 @@
             <field name="group_lot_on_delivery_slip" eval="True" />
 <!-- -->
             <field name="portal_confirmation_sign" eval="False" />
-<!-- IGNORA BLOQUEO DE AFIP -->
-            <field name="ar_afip_bloqueo" eval="False" />
-<!-- ASIGNA CUENTAS CONTABLES -->
-            <field name="incoming_accruals_account_id" ref="l10n_ar.base_cheques_de_terceros" />
-            <field name="outgoing_payable_account_id" ref="l10n_ar.base_cheques_diferidos" />
-            <field name="third_party_rejected_account_id" ref="l10n_ar.base_cheques_de_terceros_rechazados" />
-            <field name="third_party_handed_out_account_id" ref="l10n_ar.base_cheques_de_terceros" />
-            <field name="own_checks_rejected_account_id" ref="l10n_ar.base_cheques_rechazados" />
-<!-- ASIGNA DIARIO CHEQUES -->
-            <!-- <field name="cheques_not_assigned_journal_id" ref="" /> -->
         </record>
         <function model="res.config.settings" name="execute">
             <value model="res.config.settings" search="[('id', '=', ref('generic_config_settings'))]" />
@@ -227,24 +65,19 @@
         <record id="base.partner_admin" model="res.partner">
             <field name="name">Administrador</field>
             <field name="image_1920" type="base64" file="generic_defaults/static/img/administrador.jpg"/>
-            <field name="email">rubenfortunato@zoho.com</field>
+            <field name="email">dummycompanyadmin@zoho.com</field>
         </record>
-        <!-- Establece el empleado 'Administrador' -->
-        <!-- <record id="hr.employee_admin" model="hr.employee">
-            <field name="name">Administrador</field>
-            <field name="image_1920" type="base64" file="generic_defaults/static/img/administrador.jpg"/>
-            <field name="work_email">rubenfortunato@zoho.com</field>
-        </record> -->
+
         <!-- Establece algunos defaults del usuario 'Administrador' -->
         <record id="base.user_admin" model="res.users">
             <field name="partner_id" ref="base.partner_admin"/>
             <field name="company_id" ref="base.main_company"/>
             <field name="company_ids" eval="[(4, ref('base.main_company'))]"/>
-            <field name="tz">America/Buenos_Aires</field>
+            <field name="tz">America/Houston</field>
             <field name="chatter_position">normal</field>
             <field name="sidebar_visible" eval="False" />
             <field name="signature"><![CDATA[
-                <span>-- <br/>Cordiales saludos,<br/>Administrador</span>
+                <span>-- <br/>Best regards,<br/>Administrador</span>
             ]]></field>
         </record>
 
