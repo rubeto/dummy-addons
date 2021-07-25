@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate='0'>
+
+        <record id="base.main_partner" model="res.partner">
+            <field name="name">DUMMY COMPANY 2021 LTD</field>
+            <field name="currency_id" ref="base.USD" />
+
+            <field name="email">info@dummycompany2021.ar</field>
+            <field name="website">www.dummycompany2021.ar</field>
+            <field name="street">Av xxxxx nnnn</field>
+            <field name="zip">7XXXX</field>
+            <field name="city">Houston</field>
+            <field name="state_id" search="[('name','=ilike','Texas%')]" />
+            <field name="phone">+1 (AAA) XXXX-NNNN</field>
+            <field name="country_id" ref="base.us" />
+            <field name="image_1920" type="base64" file="dummy_defaults/static/img/dummy.png" />
+        </record>
+
+        <record id="base.main_company" model="res.company">
+            <field name="favicon" type="base64" file="dummy_defaults/static/img/dummy.png" />
+        </record>
+
+    <!-- SETEA MAIL DEFAULTS -->
+        <!-- Establece alias domain de mail -->
+        <record id="specific_domain_config_settings" model="res.config.settings">
+            <field name="external_email_server_default" eval="True" />
+            <field name="alias_domain">dummycompany2021.ar</field>
+<!-- TRAZABILIDAD DE LOTES -->
+            <field name="group_stock_production_lot" eval="True" />
+<!-- NUMEROS DE LOTES EN REMITOS -->
+<!--            <field name="group_lot_on_delivery_slip" eval="True" /> -->
+<!-- FECHAS DE VENCIMIENTO -->
+<!--            <field name="module_product_expiry" eval="False" /> -->
+        </record>
+        <function model="res.config.settings" name="execute">
+            <value model="res.config.settings" search="[('id', '=', ref('specific_domain_config_settings'))]" />
+        </function>
+
+        <!-- Establece el email del 'Administrador' -->
+        <record id="base.partner_admin" model="res.partner">
+            <field name="email">admin@dummycompany2021.ar</field>
+        </record>
+
+        <!-- Borra catchall and bounce aliases ( hay que borrarlos y volver a setearlos \_(ツ)_/ ) -->
+        <!-- <delete model='ir.config_parameter' search="[('key','=','mail.catchall.alias')]" /> -->
+        <!-- <delete model='ir.config_parameter' search="[('key','=','mail.bounce.alias')]" /> -->
+        <!-- Establece forma de tratamiento del header From -->
+        <!-- Replace From header if sender address domain is different, keep it if same -->
+        <function model='ir.config_parameter' name='set_param' eval="('mail.dynamic.smtp.from','odoo@dummycompany2021.ar')" />
+        <!-- Force From header always -->
+        <!-- <function model='ir.config_parameter' name='set_param' eval="('mail.force.smtp.from','odoo@dummycompany2021.ar')" /> -->
+        <!-- Setea catchall and bounce aliases -->
+        <function model='ir.config_parameter' name='set_param' eval="('mail.catchall.alias','odoo')" />
+        <function model='ir.config_parameter' name='set_param' eval="('mail.bounce.alias','bounce')" />
+
+        <!-- Postale.io Outgoing Mail server-->
+        <record id="outgoing_mailserver_data" model="ir.mail_server">
+            <field name="name">postale-SMTP</field>
+            <field name="sequence">10</field>
+            <field name="smtp_host">mail.postale.io</field>
+            <field name="smtp_port">465</field>
+            <field name="smtp_encryption">ssl</field>
+            <field name="smtp_user">odoo@dummycompany2021.ar</field>
+            <field name="smtp_pass">xxxxx</field>
+            <field name="smtp_debug">false</field>
+            <field name="active">false</field>
+        </record>
+        <!-- Postale.io Incoming mail server-->
+        <record id="incoming_mailserver_data" model="fetchmail.server">
+            <field name="name">postale-IMAP</field>
+            <field name="server_type">imap</field>
+            <field name="server">mail.postale.io</field>
+            <field name="port">993</field>
+            <field name="is_ssl">true</field>
+            <field name="user">odoo@dummycompany2021.ar</field>
+            <field name="password">xxxxx</field>
+            <field name="object_id"></field>
+            <field name="priority">5</field>
+            <field name="attach">true</field>
+            <field name="original">false</field>
+            <field name="active">true</field>
+        </record>
+
+    </data>
+</odoo>
