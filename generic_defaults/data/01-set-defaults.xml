@@ -21,7 +21,7 @@
         <function model='ir.config_parameter' name='set_param' eval="('ribbon.name','TEST&lt;br/&gt;({db_name})')" />
         <function model='ir.config_parameter' name='set_param' eval="('ribbon.background.color','rgba(123,201,128,0.8)')" />
 <!-- HIDE RIBBON -->
-        <function model='ir.config_parameter' name='set_param' eval="('ribbon.name','False')" />
+        <!-- <function model='ir.config_parameter' name='set_param' eval="('ribbon.name','False')" /> -->
 
 <!-- SETEA MULTIPLES DEFAULTS -->
         <!-- Pone b2b modo portal (los usuarios de portal deben ser invitados a registrarse) -->
@@ -73,7 +73,7 @@
             <field name="partner_id" ref="base.partner_admin"/>
             <field name="company_id" ref="base.main_company"/>
             <field name="company_ids" eval="[(4, ref('base.main_company'))]"/>
-            <field name="tz">America/Houston</field>
+            <field name="tz">US/Central</field>
             <field name="chatter_position">normal</field>
             <field name="sidebar_visible" eval="False" />
             <field name="signature"><![CDATA[

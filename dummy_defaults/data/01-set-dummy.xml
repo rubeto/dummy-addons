@@ -40,6 +40,7 @@
         <!-- Establece el email del 'Administrador' -->
         <record id="base.partner_admin" model="res.partner">
             <field name="email">admin@dummycompany2021.ar</field>
+            <field name="tz">US/Central</field>
         </record>
 
         <!-- Borra catchall and bounce aliases ( hay que borrarlos y volver a setearlos \_(ツ)_/ ) -->
