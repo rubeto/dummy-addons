@@ -43,9 +43,6 @@
             <field name="tz">US/Central</field>
         </record>
 
-        <!-- Borra catchall and bounce aliases ( hay que borrarlos y volver a setearlos \_(ツ)_/ ) -->
-        <!-- <delete model='ir.config_parameter' search="[('key','=','mail.catchall.alias')]" /> -->
-        <!-- <delete model='ir.config_parameter' search="[('key','=','mail.bounce.alias')]" /> -->
         <!-- Establece forma de tratamiento del header From -->
         <!-- Replace From header if sender address domain is different, keep it if same -->
         <function model='ir.config_parameter' name='set_param' eval="('mail.dynamic.smtp.from','odoo@dummycompany2021.ar')" />

@@ -63,9 +63,9 @@
 <!-- ADMINISTRATOR -->
         <!-- Establece el contacto 'Administrador' -->
         <record id="base.partner_admin" model="res.partner">
-            <field name="name">Administrador</field>
+            <field name="name">Admin</field>
             <field name="image_1920" type="base64" file="generic_defaults/static/img/administrador.jpg"/>
-            <field name="email">dummycompanyadmin@zoho.com</field>
+            <field name="email">rubenfortunato@zoho.com</field>
         </record>
 
         <!-- Establece algunos defaults del usuario 'Administrador' -->
@@ -77,7 +77,7 @@
             <field name="chatter_position">normal</field>
             <field name="sidebar_visible" eval="False" />
             <field name="signature"><![CDATA[
-                <span>-- <br/>Best regards,<br/>Administrador</span>
+                <span>-- <br/>Best regards,<br/>Administrator</span>
             ]]></field>
         </record>
 
