@@ -12,7 +12,6 @@
     'author': "",
     'website': "",
     'depends': [
-        'l10n_us_gaap',
 # addons ODOO
         'account',
         'base',
