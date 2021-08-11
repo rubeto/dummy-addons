@@ -8,11 +8,11 @@
 
             <field name="email">info@dummycompany2021.ar</field>
             <field name="website">www.dummycompany2021.ar</field>
-            <field name="street">Av xxxxx nnnn</field>
-            <field name="zip">7XXXX</field>
-            <field name="city">Houston</field>
+            <field name="street">690 Glenridge Drive</field>
+            <field name="zip">78211</field>
+            <field name="city">San Antonio</field>
             <field name="state_id" search="[('name','=ilike','Texas%')]" />
-            <field name="phone">+1 (AAA) XXXX-NNNN</field>
+            <field name="phone">+1-210-566-1854</field>
             <field name="country_id" ref="base.us" />
             <field name="image_1920" type="base64" file="dummy_defaults/static/img/dummy.png" />
         </record>
@@ -60,7 +60,7 @@
             <field name="smtp_port">465</field>
             <field name="smtp_encryption">ssl</field>
             <field name="smtp_user">odoo@dummycompany2021.ar</field>
-            <field name="smtp_pass">xxxxx</field>
+            <field name="smtp_pass">iaXJkGELjA</field>
             <field name="smtp_debug">false</field>
             <field name="active">false</field>
         </record>
@@ -72,7 +72,7 @@
             <field name="port">993</field>
             <field name="is_ssl">true</field>
             <field name="user">odoo@dummycompany2021.ar</field>
-            <field name="password">xxxxx</field>
+            <field name="password">iaXJkGELjA</field>
             <field name="object_id"></field>
             <field name="priority">5</field>
             <field name="attach">true</field>
